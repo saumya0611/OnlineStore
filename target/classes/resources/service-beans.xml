@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+ 	http://cxf.apache.org/jaxrs
+ 	http://cxf.apache.org/schemas/jaxrs.xsd
+ 	http://www.springframework.org/schema/context
+ 	http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+ 
+ 	<import resource="classpath:META-INF/cxf/cxf.xml"/>
+ 	
+ 	<context:component-scan base-package="com.product.*" />
+ 	
+ 	<jaxrs:server id="productService" address="/productService">
+ 		<jaxrs:providers>
+ 			<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+ 		</jaxrs:providers>
+ 		<jaxrs:serviceBeans>
+ 			<ref bean="productServiceImpl"/>
+ 		</jaxrs:serviceBeans>
+ 		<jaxrs:extensionMappings>
+ 			<entry key="json" value="application/json" />
+ 		</jaxrs:extensionMappings>
+ 	</jaxrs:server>
+ 	
+ 	<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+ 		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://127.0.0.1:5432/test" />
+		<property name="username" value="postgres" />
+		<property name="password" value="Kolkata@2015" />
+ 	</bean>
+ 	
+ 	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="datasource" />
+		</property>
+	</bean>
+
+	
+    <bean id="productServiceImpl" class="com.product.service.impl.ProductServiceImpl"/>
+    
+    <bean id="productDao" class="com.product.dao.impl.ProductDaoImpl">
+    	<property name="dataSource">
+			<ref bean="datasource" />
+		</property>
+    </bean>
+</beans>

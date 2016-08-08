@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Online Store</title>
+<script src="../js/angular.min.js"></script>
+<script src="../js/app.js"></script>
+</head>
+<body data-ng-app="productApp">
+	<div data-ng-controller="productController">
+		<table>
+			<tr>
+				<th>Product Name</th>
+				<th>Count</th>
+				<th>Action</th>
+			</tr>
+			<tr data-ng-repeat="product in products">
+					<td>{{ product.name }}</td>
+					<td>{{product.count}}</td>
+					<td><input type="submit" value="Add to Cart" data-ng-click="addToCart(product)"></td>
+			</tr>
+		</table>
+		<p>
+		<div>Total product in you cart is {{mycarts.length}}</div>
+
+		<div data-ng-show="mycarts.length > 0">
+			<p>
+				<button data-ng-click="showCart()">Click Here</button>
+				to display your carts
+			</p>
+
+			<div data-ng-show="displayCart">
+				<table>
+					<tr>
+						<th>Product Name</th>
+					</tr>
+					<tr data-ng-repeat='mycart in mycarts track by $index'>
+						<td>{{$index+1}}. {{mycart.name}}</td>
+					</tr>
+				</table>
+			</div>
+			<input type="submit" value="Buy" data-ng-click="buy()">
+		</div>
+	</div>
+</body>
+</html>
