@@ -27,9 +27,10 @@
  	</jaxrs:server>
 
 	<bean class="java.net.URI" id="dbUrl">
-		<constructor-arg value="${DATABASE_URL}"/>
-	</bean>
- 	
+    <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
+</bean>
+
+
  	<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
  		<property name="driverClassName" value="${database.driverClassName}" />
 		<property name="url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }" />
