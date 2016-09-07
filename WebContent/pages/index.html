@@ -6,7 +6,27 @@
 <script src="../js/angular.min.js"></script>
 <script src="../js/app.js"></script>
 </head>
-<body background="bgimage.jpg" data-ng-app="productApp" align="center">
+<style>
+
+body {
+		background-image: url('bgimage.jpg');
+		overflow-y: hidden ! important;
+        overflow-x: hidden ! important;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: right;
+}
+
+html {
+		background-image: url('bgimage.jpg');
+		background-repeat: no-repeat;  
+		background-attachment: scroll;  
+		background-position: 0% 0%;
+}
+
+
+</style>
+<body data-ng-app="productApp" align="center">
 	<h3>Welcome to this Online Store</h3>
 	<div data-ng-controller="productController">
 		<table align="center">
